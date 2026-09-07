@@ -9,12 +9,21 @@ def main(args=None):
     parser.add_argument(
         "--version",
         action="version",
-        version="ai-cli-assistant 0.1.0"
+        version="ai-cli-assistant 0.1.0",
     )
 
-    parser.parse_args(args)
+    parser.add_argument(
+        "prompt",
+        nargs="?",
+        help="Question or instruction for the assistant",
+    )
 
-    print("AI Assistant")
+    parsed_args = parser.parse_args(args)
+
+    if parsed_args.prompt:
+        print(f"You asked: {parsed_args.prompt}")
+    else:
+        print("AI Assistant")
 
 
 if __name__ == "__main__":
