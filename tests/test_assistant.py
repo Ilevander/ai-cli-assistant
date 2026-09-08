@@ -1,23 +1,22 @@
 from ai_assistant.assistant import Assistant
 
 
-class FakeResponse:
-    output_text = "Similated Response"
+def test_assistant_ask(monkeypatch):
+    class FakeResponse:
+        class Message:
+            content = "Simulated Response"
 
+        message = Message()
 
-class FakeResponses:
-    def create(self, **kwargs):
+    def fake_chat(**kwargs):
         return FakeResponse()
 
+    monkeypatch.setattr(
+        "ai_assistant.assistant.chat",
+        fake_chat,
+    )
 
-class FakeClient:
-    def __init__(self):
-        self.responses = FakeResponses()
-
-
-def test_assistant_ask():
-    assistant = Assistant.__new__(Assistant)
-    assistant.client = FakeClient()
+    assistant = Assistant()
 
     response = assistant.ask("Explique-moi Git")
 

@@ -9,9 +9,18 @@ def test_cli_runs(capsys):
     assert "AI Assistant" in captured.out
 
 
-def test_cli_prompt(capsys):
+def test_cli_prompt(monkeypatch, capsys):
+    class FakeAssistant:
+        def ask(self, prompt):
+            return "Simulated Response"
+
+    monkeypatch.setattr(
+        "ai_assistant.cli.Assistant",
+        FakeAssistant,
+    )
+
     main(["Explique-moi Git"])
 
     captured = capsys.readouterr()
 
-    assert "Explique-moi Git" in captured.out
+    assert "Simulated Response" in captured.out

@@ -9,7 +9,7 @@ description = "A command-line AI assistant built with Python"
 requires-python = ">=3.10"
 
 dependencies = [
-    "openai",
+    "ollama",
 ]
 
 [project.optional-dependencies]
