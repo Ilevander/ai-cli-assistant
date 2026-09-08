@@ -1,5 +1,6 @@
 import argparse
 
+from ai_assistant.assistant import Assistant
 
 def main(args=None):
     parser = argparse.ArgumentParser(
@@ -21,7 +22,10 @@ def main(args=None):
     parsed_args = parser.parse_args(args)
 
     if parsed_args.prompt:
-        print(f"You asked: {parsed_args.prompt}")
+        assistant = Assistant()
+        response = assistant.ask(parsed_args.prompt)
+        print(response)
+        #print(f"You asked: {parsed_args.prompt}")
     else:
         print("AI Assistant")
 
