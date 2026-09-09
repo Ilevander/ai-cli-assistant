@@ -1,5 +1,6 @@
 #from openai import OpenAI
 from ollama import chat
+from ai_assistant.history import ConversationHistory
 
 #class Assistant:
     #def __init__(self):
@@ -14,14 +15,17 @@ from ollama import chat
       #  return response.output_text
 
 class Assistant:
+    def __init__(self):
+        self.history = ConversationHistory()
+
     def ask(self, prompt: str) -> str:
+        self.history.add_user_message(prompt)
+
         response = chat(
             model="gemma3",
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt,
-                }
-            ],
+            messages=self.history.get_messages(),
         )
-        return response.message.content
+
+        answer = response.message.content
+        self.history.add_assistant_message(answer)
+        return answer
