@@ -21,14 +21,31 @@ def main(args=None):
 
     parsed_args = parser.parse_args(args)
 
+    assistant = Assistant()
+
     if parsed_args.prompt:
-        assistant = Assistant()
+
         response = assistant.ask(parsed_args.prompt)
         print(response)
         #print(f"You asked: {parsed_args.prompt}")
-    else:
-        print("AI Assistant")
+        return
+    
+    print("AI Assistant -conversation mode")
+    print("Type 'exit' to quit.")
 
+    while True:
+        prompt = input("\nYou  > ")
 
+        if prompt.lower() == "exit":
+            print("Goodbye!")
+            break
+
+        if not prompt.strip():
+            continue
+
+        response = assistant.ask(prompt)
+        print(f"AI  > {response}")
+    
+    
 if __name__ == "__main__":
     main()
