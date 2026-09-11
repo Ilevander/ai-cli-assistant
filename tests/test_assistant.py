@@ -5,6 +5,7 @@ def test_assistant_ask(monkeypatch):
     class FakeResponse:
         class Message:
             content = "Simulated Response"
+            tool_calls = []
 
         message = Message()
 
@@ -40,6 +41,7 @@ def test_assistant_keeps_conversation_history(monkeypatch):
     class FakeResponse:
         class Message:
             content = "Simulated Response"
+            tool_calls = []
 
         message = Message()
 
