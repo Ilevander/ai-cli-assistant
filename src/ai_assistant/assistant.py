@@ -7,6 +7,12 @@ from ai_assistant.tools.datetime import (
     get_current_time,
     get_day_of_week,
 )
+from ai_assistant.tools.files import (
+    file_exists,
+    list_files,
+    read_file,
+    write_file,
+)
 #class Assistant:
     #def __init__(self):
         #self.client = OpenAI()
@@ -28,6 +34,10 @@ class Assistant:
             "get_current_datetime": get_current_datetime,
             "get_current_time": get_current_time,
             "get_day_of_week": get_day_of_week,
+            "file_exists": file_exists,
+            "list_files": list_files,
+            "read_file": read_file,
+            "write_file": write_file,
         }
 
         self.tools = list(self.available_tools.values())
@@ -55,6 +65,7 @@ class Assistant:
                 if function_to_call is None:
                     result = f"Unknown tool: {function_name}"
                 else:
+                    print(f"[TOOL] {function_name}({function_args})")
                     result = function_to_call(**function_args)
 
                 self.history.messages.append(
